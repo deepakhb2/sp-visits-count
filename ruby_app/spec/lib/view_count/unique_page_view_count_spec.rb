@@ -1,6 +1,7 @@
-require_relative '../view_count'
+require 'yaml'
+require_relative '../../../lib/view_count/unique_page_view_count'
 
-describe UniquePageViewCount do
+describe ViewCount::UniquePageViewCount do
   let(:views) { YAML.load_file('spec/fixtures/lib/processor.yaml') }
   let(:subject) { described_class.new(views) }
 

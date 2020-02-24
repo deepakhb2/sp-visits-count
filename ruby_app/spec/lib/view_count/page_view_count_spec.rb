@@ -1,6 +1,7 @@
-require_relative '../view_count'
+require 'yaml'
+require_relative '../../../lib/view_count/page_view_count'
 
-describe PageViewCount do
+describe ViewCount::PageViewCount do
   let(:views) { YAML.load_file('spec/fixtures/lib/processor.yaml') }
   let(:subject) { described_class.new(views) }
 
