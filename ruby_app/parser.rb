@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'byebug'
-
 require_relative './lib/console'
 require_relative './lib/reader'
 require_relative './lib/processor'

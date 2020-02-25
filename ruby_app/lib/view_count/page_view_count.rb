@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'byebug'
 require_relative '../view_count'
 
 class ViewCount
