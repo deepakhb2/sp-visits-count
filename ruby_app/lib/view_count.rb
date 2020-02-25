@@ -8,7 +8,7 @@ class ViewCount
   def views_count
     @views_count ||= @views.size
   end
-  
+
   private
 
   def group_by_page

@@ -5,6 +5,7 @@ require 'byebug'
 require_relative './lib/console'
 require_relative './lib/reader'
 require_relative './lib/processor'
+require_relative './lib/utils/desc_sort'
 
 def parse_log_file(file_path)
   if(file_path && File.extname(file_path) == ".log")
@@ -13,10 +14,8 @@ def parse_log_file(file_path)
       reader = Reader.new(file) 
       
       views = reader.views
-      processor = Processor.new(views)
-       
-      Console.print(processor.desc_page_views_count, 'visits')
-      Console.print(processor.desc_unique_page_views_count, 'unique views')
+      processor = Processor.new(views, DescSort, Console)
+      processor.print
     rescue Errno::ENOENT => e
       puts "File not found!"
     rescue Exception => e

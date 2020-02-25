@@ -1,43 +1,28 @@
 # frozen_string_literal: true
 
+require_relative 'utils/desc_sort'
+require_relative 'view_count/page_view_count'
+require_relative 'view_count/unique_page_view_count'
+
 class Processor
-  def initialize(views)
+  def initialize(views, sort, output)
     @views = views
+    @sort = sort
+    @output = output
   end
 
-  def desc_page_views_count
-    page_views_count.sort_by { |v| -v[:count] }
-  end
-
-  def desc_unique_page_views_count
-    unique_page_views_count.sort_by { |v| -v[:count] }
+  def print
+    page_counts.each do |page_count|
+      @output.print(page_count)
+    end
   end
 
   private
 
-  def page_views_count
-    @page_views_count ||= group_by_page.map do |page, page_views|
-      {
-        page: page,
-        count: page_count(page, page_views)
-      }
-    end
-  end
-
-  def unique_page_views_count
-    @unique_page_views_count ||= group_by_page.map do |page, page_views|
-      {
-        page: page,
-        count: page_count(page, page_views.uniq)
-      }
-    end
-  end
-
-  def group_by_page
-    @views.group_by { |view| view[:page] }
-  end
-
-  def page_count(page, page_views)
-    page_views.count { |page_view| page_view[:page] == page }
+  def page_counts
+    @page_counts ||= [
+      ViewCount::PageViewCount.new(@views, @sort),
+      ViewCount::UniquePageViewCount.new(@views, @sort)
+    ]
   end
 end
