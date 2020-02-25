@@ -30,5 +30,6 @@ $ ./parser.rb webserver.log
 
 #### Run tests:
 ```bash
+$ cd ruby_app
 $ rspec
 ```
