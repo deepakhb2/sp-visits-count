@@ -4,6 +4,8 @@ require_relative './lib/console'
 require_relative './lib/reader'
 require_relative './lib/processor'
 require_relative './lib/utils/desc_sort'
+require_relative './lib/view_count/page_view_count'	
+require_relative './lib/view_count/unique_page_view_count'
 
 def parse_log_file(file_path)
   if(file_path && File.extname(file_path) == ".log")
@@ -12,7 +14,11 @@ def parse_log_file(file_path)
       reader = Reader.new(file) 
       
       views = reader.views
-      processor = Processor.new(views, DescSort, Console)
+      page_counts = [
+        ViewCount::PageViewCount.new(views, DescSort),	
+        ViewCount::UniquePageViewCount.new(views, DescSort) 
+      ]
+      processor = Processor.new(page_counts, Console)
       processor.print
     rescue Errno::ENOENT => e
       puts "File not found!"
