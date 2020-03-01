@@ -18,7 +18,7 @@ def parse_log_file(file_path)
         ViewCount::PageViewCount.new(views, DescSort),	
         ViewCount::UniquePageViewCount.new(views, DescSort) 
       ]
-      processor = Processor.new(page_counts, Console)
+      processor = Processor.new(page_counts, Console.instance)
       processor.print
     rescue Errno::ENOENT => e
       puts "File not found!"

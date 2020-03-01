@@ -5,7 +5,7 @@ require 'yaml'
 require_relative '../../lib/console'
 
 describe Console do
-  subject { described_class }
+  subject { described_class.instance }
   let(:page_views) { YAML.load_file('spec/fixtures/lib/console.yaml') }
 
   it 'print page views' do
